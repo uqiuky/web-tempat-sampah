@@ -6,14 +6,21 @@
         <h4 class="pt-3">DATA PEKERJA TUKANG SAMPAH</h4>
         <h5 class="mb-2">POLITEKNIK NEGERI SEMARANG</h5>
         <hr>
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <table class="table table-responsive table-hover table-bordered text-center">
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Nama</th>
                     <th scope="col">Username</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Nama</th>
                     <th scope="col">Usia</th>
+                    <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Email</th>
                     <th scope="col">Foto Profil</th>
                     <th scope="col"></th>
@@ -23,9 +30,10 @@
                 @foreach ($user as $user)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>Mark</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->is_admin }}</td>
+                        <td>Mark</td>
+                        <td>@mdo</td>
                         <td>@mdo</td>
                         <td>@mdo</td>
                         <td><img src="https://random.imagecdn.app/100/100" class="rounded mx-auto d-block" alt="..."></td>

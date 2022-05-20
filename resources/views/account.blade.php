@@ -30,7 +30,7 @@
                         <h5 class="card-title">Username</h5>
                         <p class="lead card-text">Syauqi</p>
                         <h5 class="card-title">Tanggal Lahir</h5>
-                        <p class="lead card-text">08 Agustus 2000</p>
+                        <p class="lead card-text">8 Agustus 2000</p>
                         <h5 class="card-title">Jenis Kelamin</h5>
                         <p class="lead card-text">Pria</p>
                         <h5 class="card-title">Alamat</h5>

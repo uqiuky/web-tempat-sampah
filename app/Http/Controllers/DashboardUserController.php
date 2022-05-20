@@ -17,7 +17,8 @@ class DashboardUserController extends Controller
     public function index()
     {
         return view('users.index', [
-            'user' => User::all()
+            'user' => User::all(),
+            'biodata' => Biodata::all()
         ]);
     }
 
@@ -40,8 +41,8 @@ class DashboardUserController extends Controller
     public function store(Request $request)
     {
          $this->validate($request,[
-    		'username' => 'required',
-    		'email' => 'required',
+    		'username' => 'required|unique:users',
+    		'email' => 'required|unique:biodatas',
     		'password' => 'required',
     		'is_admin' => 'required'
     	]);
@@ -59,7 +60,7 @@ class DashboardUserController extends Controller
             'user_id' => $user->id
     	]);
 
-        return redirect('/pekerja');
+        return redirect('/pekerja')->with('success', 'Akun baru berhasil ditambahkan!');
     }
 
     /**

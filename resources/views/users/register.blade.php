@@ -8,14 +8,24 @@
         <form method="post" action="/pekerja" class="col-lg-8 justify-content-center mx-auto">
             @csrf
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Username</label>
-                <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="username" required
-                    name="username">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control  @error('username') is-invalid @enderror" id="username"
+                    aria-describedby="username" required name="username" value="{{ old('username') }}">
+                @error('username')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required
-                    name="email">
+                <label for="email" class="form-label">Alamat Email</label>
+                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                    aria-describedby="email" required required name="email" value="{{ old('email') }}">
+                @error('email')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
