@@ -31,15 +31,15 @@ Route::get('/', 'App\Http\Controllers\DashboardController@index')->middleware('a
 //     return view('edit',);
 // })->middleware('auth');
 
-Route::get('/contoh', 'App\Http\Controllers\DashboardController@contoh');
+Route::get('/contoh', 'App\Http\Controllers\DashboardController@account');
 
 Route::get('/data', function () {
     return view('data',);
 })->middleware('auth');
 
-Route::get('/account', function () {
-    return view('account');
-})->middleware('auth');
+// Route::get('/account', function () {
+//     return view('account');
+// })->middleware('auth');
 
 Route::resource('/pekerja', DashboardUserController::class)->middleware('auth');
 Route::get('/employee/{empoyee}', function ($employee){

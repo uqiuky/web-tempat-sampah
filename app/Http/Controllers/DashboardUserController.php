@@ -79,7 +79,7 @@ class DashboardUserController extends Controller
     {
         $data = User::join('biodatas', 'biodatas.user_id', '=', 'users.id')->where('user_id', Auth::user()->id)->firstOrFail();
         
-        return view('users.views.account', [
+        return view('users.views.accounts', [
             'data' => $data
         ]);
     }

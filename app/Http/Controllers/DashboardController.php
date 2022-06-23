@@ -70,4 +70,13 @@ class DashboardController extends Controller
         //     "location" => "Laboratorium Telekomunikasi Barat - 01"
         // ]);
     }
+
+    // public function account()
+    // {
+    //     $data = User::join('biodatas', 'biodatas.user_id', '=', 'users.id')->where('user_id', Auth::user()->id)->firstOrFail();
+    //     dd($data);
+    //     return view('users.views.accounts', [
+    //         'data' => $data
+    //     ]);
+    // }
 }
