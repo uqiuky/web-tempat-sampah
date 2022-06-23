@@ -11,7 +11,7 @@ class Trash extends Model
     
     public function data()
     {
-        return $this->hasMany(Data::class);
+        return $this->hasMany(Data::class, 'node');
     }
 
     protected $fillable = [

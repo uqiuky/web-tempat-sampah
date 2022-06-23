@@ -15,8 +15,9 @@ class CreateTrashesTable extends Migration
     {
         Schema::create('trashes', function (Blueprint $table) {
             $table->id();
-            $table->string('location');
-            $table->string('maps');
+            $table->bigInteger('node_number')->unique();
+            $table->string('location')->nullable();
+            $table->string('maps')->nullable();
             $table->timestamps();
         });
     }

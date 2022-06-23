@@ -11,12 +11,12 @@ class Data extends Model
 
     public function trash()
     {
-        return $this->belongsTo(Trash::class);
+        return $this->belongsTo(Trash::class, 'node_number');
     }
 
     protected $fillable = [
         'node',
-        'data_sensor',
+        'hcsr',
         'last_update'
     ];
 }

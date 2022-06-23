@@ -15,6 +15,10 @@ class CreateDataTable extends Migration
     {
         Schema::create('data', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('node')->nullable();
+            $table->foreign('node')->references('node_number')->on('trashes');
+            $table->integer('hcsr')->nullable();
+            $table->dateTime('last_update')->nullable();
             $table->timestamps();
         });
     }
