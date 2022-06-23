@@ -18,15 +18,14 @@
                             <h4 class="card-title mt-2">Tempat Sampah</h4>
                             <div class="trash mx-auto">
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 285.5 374" data-percent="30" data-color="#ff5733" data-animation="2000"
-                                    width="150" height="150" fill="currentColor"
+                                    viewBox="0 0 285.5 374" data-percent=" {{ $cm }}" data-color="#ff5733"
+                                    data-animation="2000" width="150" height="150" fill="currentColor"
                                     class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
                                     <defs>
                                         <style>
                                             .cls-1 {
                                                 fill: #444e3f;
                                             }
-
                                         </style>
                                     </defs>
                                     <title>sampah</title>
@@ -39,7 +38,7 @@
                                 </svg>
                             </div>
                             <div class="card-body">
-                                <span class="num fs-1" data-val="30">0</span>
+                                <span class="num fs-1" data-val=" {{ $cm }}">0</span>
                                 <span class="text fs-1">%</span>
                                 <p class="card-text">{{ $location }}</p>
                             </div>
@@ -64,7 +63,7 @@
                                                 <p class="mb-0 mt-1">Volume sampah saat ini : </p>
                                             </div>
                                             <div class="row row-cols-auto justify-content-center">
-                                                <span class="num fs-1 px-0" data-val="70">0</span>
+                                                <span class="num fs-1 px-0" data-val="{{ $cm }}">0</span>
                                                 <span class="text fs-1 px-0">%</span>
                                             </div>
                                         </div>
@@ -73,7 +72,7 @@
                                                 <p class="my-1">Lokasi : {{ $location }}</p>
                                             </div>
                                             <div class="row bg-secondary bg-opacity-25 rounded mt-1">
-                                                <p class="my-1">Last Update : 11-04-2022 12:44:32</p>
+                                                <p class="my-1">Last Update : {{ $time }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -94,15 +93,15 @@
                         </div> --}}
                         <h4 class="card-title mt-2">Tempat Sampah</h4>
                         <div class="trash mx-auto">
-                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285.5 374"
-                                data-percent="70" data-color="#ff5733" data-animation="2000" width="150" height="150"
-                                fill="currentColor" class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
+                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 285.5 374" data-percent="70" data-color="#ff5733" data-animation="2000"
+                                width="150" height="150" fill="currentColor"
+                                class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
                                 <defs>
                                     <style>
                                         .cls-1 {
                                             fill: #444e3f;
                                         }
-
                                     </style>
                                 </defs>
                                 <title>sampah</title>
@@ -129,15 +128,15 @@
                         </div> --}}
                         <h4 class="card-title mt-2">Tempat Sampah</h4>
                         <div class="trash mx-auto">
-                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285.5 374"
-                                data-percent="90" data-color="#ff5733" data-animation="2000" width="150" height="150"
-                                fill="currentColor" class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
+                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 285.5 374" data-percent="90" data-color="#ff5733" data-animation="2000"
+                                width="150" height="150" fill="currentColor"
+                                class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
                                 <defs>
                                     <style>
                                         .cls-1 {
                                             fill: #444e3f;
                                         }
-
                                     </style>
                                 </defs>
                                 <title>sampah</title>
@@ -164,15 +163,15 @@
                         </div> --}}
                         <h4 class="card-title mt-2">Tempat Sampah</h4>
                         <div class="trash mx-auto">
-                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285.5 374"
-                                data-percent="50" data-color="#ff5733" data-animation="2000" width="150" height="150"
-                                fill="currentColor" class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
+                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 285.5 374" data-percent="50" data-color="#ff5733" data-animation="2000"
+                                width="150" height="150" fill="currentColor"
+                                class="bi bi-alarm-fill progressIcon d-flex" viewBox="0 0 16 16">
                                 <defs>
                                     <style>
                                         .cls-1 {
                                             fill: #444e3f;
                                         }
-
                                     </style>
                                 </defs>
                                 <title>sampah</title>
@@ -235,5 +234,13 @@
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            function autoRefreshPage() {
+                window.location = window.location.href;
+            }
+            setInterval('autoRefreshPage()', 60000);
+        </script>
+
     </section>
 @endsection

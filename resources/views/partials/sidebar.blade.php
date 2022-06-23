@@ -107,7 +107,7 @@
             </li>
             <div class="position-absolute bottom-0 ">
                 <li class="">
-                    <a href="account">
+                    <a href="pekerja/show">
                         <i class="bx bx-cog"></i>
                         <span class="links_name">Settings</span>
                     </a>

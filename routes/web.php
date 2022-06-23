@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 
 /*
@@ -26,9 +27,11 @@ Route::get('/', 'App\Http\Controllers\DashboardController@index')->middleware('a
 //     return view('register',);
 // })->middleware('auth');
 
-Route::get('/edit_bio', function () {
-    return view('edit',);
-})->middleware('auth');
+// Route::get('/edit_bio', function () {
+//     return view('edit',);
+// })->middleware('auth');
+
+Route::get('/contoh', 'App\Http\Controllers\DashboardController@contoh');
 
 Route::get('/data', function () {
     return view('data',);
@@ -39,3 +42,6 @@ Route::get('/account', function () {
 })->middleware('auth');
 
 Route::resource('/pekerja', DashboardUserController::class)->middleware('auth');
+Route::get('/employee/{empoyee}', function ($employee){
+    return $employee;
+});

@@ -30,6 +30,9 @@
     <script src="js/progress.js"></script>
     <script src="https://kit.fontawesome.com/5c86256b06.js" crossorigin="anonymous"></script>
 
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
 </head>
 
 <body>
@@ -127,6 +130,21 @@
                 }
             }, duration);
         });
+    </script>
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#photo');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
     </script>
 </body>
 
