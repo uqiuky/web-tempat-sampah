@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\TrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::post('/employee', [LoginController::class, 'create']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
+// Route::get('/', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
 
 // Route::get('/tambah_pekerja', function () {
 //     return view('register',);
@@ -31,7 +32,7 @@ Route::get('/', 'App\Http\Controllers\DashboardController@index')->middleware('a
 //     return view('edit',);
 // })->middleware('auth');
 
-Route::get('/contoh', 'App\Http\Controllers\DashboardController@account');
+Route::get('/contoh', 'App\Http\Controllers\DashboardController@contoh');
 
 Route::get('/data', function () {
     return view('data',);
@@ -42,6 +43,7 @@ Route::get('/data', function () {
 // })->middleware('auth');
 
 Route::resource('/pekerja', DashboardUserController::class)->middleware('auth');
-Route::get('/employee/{empoyee}', function ($employee){
-    return $employee;
-});
+
+Route::resource('/', TrashController::class)->middleware('auth');
+
+// Route::get('/employee', 'App\Http\Controllers\TrashController@create');
