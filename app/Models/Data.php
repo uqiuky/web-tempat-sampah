@@ -14,6 +14,8 @@ class Data extends Model
         return $this->belongsTo(Trash::class, 'node_number');
     }
 
+    protected $table = 'data';
+
     protected $fillable = [
         'node',
         'hcsr',

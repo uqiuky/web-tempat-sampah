@@ -28,6 +28,7 @@
     <title>Angkut Sampah</title>
 
     <script src="js/progress.js"></script>
+    <script src="js/monitor.js"></script>
     <script src="https://kit.fontawesome.com/5c86256b06.js" crossorigin="anonymous"></script>
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>

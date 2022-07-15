@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\TrashController;
+use App\Http\Controllers\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 //     return view('edit',);
 // })->middleware('auth');
 
-Route::get('/contoh', 'App\Http\Controllers\DashboardController@contoh');
+
 
 Route::get('/data', function () {
     return view('data',);

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trash;
+use App\Models\Data;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -17,50 +19,31 @@ class TrashController extends Controller
     public function index()
     {
         $trashes = Trash::all();
-        foreach ($trashes as $trash) {
-            $node_number = $trash->node_number;
-            $location = $trash->location;
-            $maps = $trash->maps;
-            
-        }
-        
-        $headers = [
-            "X-M2M-Origin" => "1c27adf79fd221ff:db68a82a0389e67a",
-            // "X-M2M-Origin: ",
-            "Content-Type" => "application/json;ty=4",
-            "Accept" => "application/json"
-        ];
-        $response = Http::withHeaders($headers)->get('https://platform.antares.id:8443/~/antares-cse/antares-id/TempatSampah1129/Lora/la');
-        $body = $response->json('m2m:cin');        
-        $datas = json_decode($body['con'], true);
-        $time = strtotime($body['lt']);
-        $datetime = date("d-M-Y H:i:s", $time);
-        $date = date("d-M-Y", $time);
-        $time = date("H:i:s", $time);
-        $values = $datas['data'];
-        $node = $values['Node'];
-        $sum = $values['Cm'] - 20;
-        $cm = $sum * 100/40;
-        
-        if ($values['Cm']>59) {
-            $percent = 1;
-        }elseif($values['Cm']<21) {
-            $percent = 100;
-        }else{
-            $percent = 100 - $cm;
-        }
 
+        $nodenum = Trash::pluck('node_number');
+
+        // foreach ($trashes as $trash) {
+        //     $node_number = $trash->node_number;
+        //     $location = $trash->location;
+        //     $maps = $trash->maps;
+            
+        // }
+        
+
+        $data_1 = Data::where('node','=','1')->latest('last_update')->first();
+        $data_2 = Data::where('node','=','2')->latest('last_update')->first();
+
+        // $try = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node','=',$nodenum)->get(['data.*', 'trashes.*']);
+
+        // $data = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->get(['data.*', 'trashes.*']);
+
+        // dd($trashes);
 
     return view('dashboard.index',[
-        "name" => "Lab TK-B 1",
-        "node" => $node,
-        "node_number" => $node_number,
-        "cm" => $percent,
-        "datetime" => $datetime,
-        "date" => $date,
-        "time" => $time,
-        "location" => $location,
-        "maps" => $maps
+        "trash" => $trashes,
+        "data_1" => $data_1,
+        "data_2" => $data_2,
+        "total" => $nodenum
     ]);
     }
 
@@ -94,7 +77,7 @@ class TrashController extends Controller
     		'maps' => $request->maps
     	]);
 
-        return redirect('../../')->with('success', 'Tempat sampah baru baru berhasil ditambahkan!');
+        return redirect('/')->with('success', 'Tempat sampah baru baru berhasil ditambahkan!');
     }
 
     /**
