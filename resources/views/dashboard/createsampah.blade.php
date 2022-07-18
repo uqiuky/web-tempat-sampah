@@ -5,7 +5,7 @@
     <section class="home-section">
         <h4 class="pt-3 text-center">TAMBAH TEMPAT SAMPAH</h4>
         <hr>
-        <form method="post" action="/" class="col-lg-8 justify-content-center mx-auto">
+        <form method="post" action="/dashboard" class="col-lg-8 justify-content-center mx-auto">
             @csrf
             <div class="mb-3">
                 <label for="node_number" class="form-label">Node Sampah</label>

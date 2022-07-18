@@ -78,21 +78,21 @@
                 <span class="tooltip">Search</span>
             </li>
             <li>
-                <a href="/">
+                <a href="/dashboard">
                     <i class="bx bx-grid-alt"></i>
                     <span class="links_name">Dashboard</span>
                 </a>
                 <span class="tooltip">Dashboard</span>
             </li>
             <li>
-                <a href="/../data">
+                <a href="/data">
                     <i class="bx bx-pie-chart-alt-2"></i>
                     <span class="links_name">Riwayat Data</span>
                 </a>
                 <span class="tooltip">Riwayat Data</span>
             </li>
             <li>
-                <a href="/..">
+                <a href="/pekerja">
                     <i class="bx bx-folder"></i>
                     <span class="links_name">Data Pekerja</span>
                 </a>
@@ -107,7 +107,7 @@
             </li>
             <div class="position-absolute bottom-0 ">
                 <li class="">
-                    <a href="/show">
+                    <a href="pekerja/show">
                         <i class="bx bx-cog"></i>
                         <span class="links_name">Settings</span>
                     </a>

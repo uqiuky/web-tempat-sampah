@@ -22,14 +22,12 @@ class TrashController extends Controller
 
         $nodenum = Trash::pluck('node_number');
 
-        // foreach ($trashes as $trash) {
-        //     $node_number = $trash->node_number;
-        //     $location = $trash->location;
-        //     $maps = $trash->maps;
-            
-        // }
-        
+        foreach ($nodenum as $nodenums) {
+            $data = Data::where('node','=',$nodenums)->latest('last_update')->first();
+        }
 
+        $nodetotal = Data::distinct()->count('node');
+        
         $data_1 = Data::where('node','=','1')->latest('last_update')->first();
         $data_2 = Data::where('node','=','2')->latest('last_update')->first();
 
@@ -37,13 +35,13 @@ class TrashController extends Controller
 
         // $data = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->get(['data.*', 'trashes.*']);
 
-        // dd($trashes);
+        // dd($nodenum);
 
     return view('dashboard.index',[
         "trash" => $trashes,
         "data_1" => $data_1,
         "data_2" => $data_2,
-        "total" => $nodenum
+        "total" => $nodetotal
     ]);
     }
 
@@ -54,7 +52,7 @@ class TrashController extends Controller
      */
     public function create()
     {
-        return view('trash.views.createsampah',);
+        return view('dashboard.createsampah',);
     }
 
     /**
@@ -77,7 +75,7 @@ class TrashController extends Controller
     		'maps' => $request->maps
     	]);
 
-        return redirect('/')->with('success', 'Tempat sampah baru baru berhasil ditambahkan!');
+        return redirect('/dashboard')->with('success', 'Tempat sampah baru baru berhasil ditambahkan!');
     }
 
     /**
@@ -97,11 +95,15 @@ class TrashController extends Controller
      * @param  \App\Models\Trash  $trash
      * @return \Illuminate\Http\Response
      */
-    public function edit(Trash $trash)
+    public function edit($id)
     {
+      
+            $data = Trash::find($id);
         
-        return view('trash.views.editsampah', [
-            'trash' => $trash
+        // dd($data);
+        
+        return view('dashboard.editsampah', [
+            'trash' => $data
         ]);
     }
 
@@ -112,9 +114,28 @@ class TrashController extends Controller
      * @param  \App\Models\Trash  $trash
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trash $trash)
+    public function update(Request $request, Trash $trash, $id)
     {
-        //
+        $rules = [
+            'location' => 'required',
+    		'maps' => 'required'
+    	];
+        $data = Trash::find($id);
+
+        if ($request->node_number != $data->node_number) {
+            $rules['node_number'] = 'required|unique:trashes';
+        }
+        
+        $this->validate($request, $rules);
+
+        Trash::where('id', $data->id)
+        ->update([
+    		'node_number' => $request->node_number,
+    		'location' => $request->location,
+    		'maps' => $request->maps
+    	]);
+
+        return redirect('/dashboard')->with('success', 'Data berhasil disunting!');
     }
 
     /**
@@ -123,8 +144,11 @@ class TrashController extends Controller
      * @param  \App\Models\Trash  $trash
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trash $trash)
+    public function destroy(Trash $trash, $id)
     {
-        //
+        $data = Trash::find($id);
+        $data->delete();
+
+        return redirect('/dashboard')->with('success', 'Sampah berhasil dihapus!');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,33 +19,20 @@ use App\Http\Controllers\DataController;
 |
 */
 
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/', [LoginController::class, 'authenticate']);
 // Route::post('/employee', [LoginController::class, 'create']);
 Route::post('/logout', [LoginController::class, 'logout']);
-
-// Route::get('/', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
-
-// Route::get('/tambah_pekerja', function () {
-//     return view('register',);
-// })->middleware('auth');
-
-// Route::get('/edit_bio', function () {
-//     return view('edit',);
-// })->middleware('auth');
-
-
 
 Route::get('/data', function () {
     return view('data',);
 })->middleware('auth');
 
-// Route::get('/account', function () {
-//     return view('account');
-// })->middleware('auth');
+Route::get('/email', [EmailController::class, 'kirim']);
 
 Route::resource('/pekerja', DashboardUserController::class)->middleware('auth');
 
-Route::resource('/', TrashController::class)->middleware('auth');
+Route::resource('/dashboard', TrashController::class)->middleware('auth');
+// Route::get('{}/edit', 'App\Http\TrashController@edit')->name('dashboard.editsampah');
 
 // Route::get('/employee', 'App\Http\Controllers\TrashController@create');

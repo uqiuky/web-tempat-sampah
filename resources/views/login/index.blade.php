@@ -14,7 +14,7 @@
             <h1 class="display-1 judul">Tempat Sampah Pintar</h1>
             <p>Selamat datang di website Sampah Kita. Website untuk membantu para pekerja tukang sampah menangani sampah
                 di lingkungan sekitar. Silahkan klik "Masuk" apabila anda merupakan petugas kebersihan.</p>
-            <form action="/login" method="post">
+            <form action="/" method="post">
                 @csrf
                 <div class="input-group flex-nowrap">
                     <input type="text" name="username" class="form-control" placeholder="Username"
