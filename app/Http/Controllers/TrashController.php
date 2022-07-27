@@ -23,24 +23,22 @@ class TrashController extends Controller
         $nodenum = Trash::pluck('node_number');
 
         foreach ($nodenum as $nodenums) {
-            $data = Data::where('node','=',$nodenums)->latest('last_update')->first();
+            $data[] = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node_number','=',$nodenums)->latest('last_update')->first();
         }
 
         $nodetotal = Data::distinct()->count('node');
         
-        $data_1 = Data::where('node','=','1')->latest('last_update')->first();
-        $data_2 = Data::where('node','=','2')->latest('last_update')->first();
+        // $data_1 = Data::where('node','=','1')->latest('last_update')->first();
+        // $data_2 = Data::where('node','=','2')->latest('last_update')->first();
 
         // $try = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node','=',$nodenum)->get(['data.*', 'trashes.*']);
 
         // $data = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->get(['data.*', 'trashes.*']);
 
-        // dd($nodenum);
+        // dd($data);
 
     return view('dashboard.index',[
-        "trash" => $trashes,
-        "data_1" => $data_1,
-        "data_2" => $data_2,
+        "trash" => $data,
         "total" => $nodetotal
     ]);
     }
@@ -98,12 +96,16 @@ class TrashController extends Controller
     public function edit($id)
     {
       
-            $data = Trash::find($id);
+            $data = Trash::where('node_number','=',$id)->get();
+
+            foreach ($data as $datas) {
+                # code...
+            }
         
-        // dd($data);
+        // dd($datas);
         
         return view('dashboard.editsampah', [
-            'trash' => $data
+            'trash' => $datas
         ]);
     }
 
@@ -146,8 +148,16 @@ class TrashController extends Controller
      */
     public function destroy(Trash $trash, $id)
     {
-        $data = Trash::find($id);
-        $data->delete();
+        $nodenum = Trash::pluck('node_number');
+
+        foreach ($nodenum as $nodenums) {
+            $data[] = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node_number','=',$nodenums)->latest('last_update')->first();
+        }
+        
+        $data_id = Trash::find($id);
+        // dd($data_id);
+        
+        $data_id->delete();
 
         return redirect('/dashboard')->with('success', 'Sampah berhasil dihapus!');
     }
