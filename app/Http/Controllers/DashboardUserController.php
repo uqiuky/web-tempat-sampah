@@ -20,7 +20,12 @@ class DashboardUserController extends Controller
     {
         $data = User::leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')->get(['users.*', 'biodatas.*']);
 
-        // dd($data);
+        $email = $data->pluck('email');
+
+        // dd($email);
+        if(auth()->user()->is_admin !== 1){
+            abort(403);
+        }
         return view('users.views.index', [
             'user' => $data
         ]);
@@ -33,6 +38,9 @@ class DashboardUserController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->is_admin !== 1){
+            abort(403);
+        }
         return view('users.views.register',);
     }
 
@@ -65,6 +73,10 @@ class DashboardUserController extends Controller
             'email' => $request->email,
             'user_id' => $user->id
     	]);
+
+        if(auth()->user()->is_admin !== 1){
+            abort(403);
+        }
 
         return redirect('/pekerja')->with('success', 'Akun baru berhasil ditambahkan!');
     }

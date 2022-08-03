@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Announcement;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,15 +11,17 @@ use Illuminate\Notifications\Notification;
 class TrashNotif extends Notification
 {
     use Queueable;
+    
+    private $announcement;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Announcement $announcement)
     {
-        //
+        $this->announcement = $announcement;
     }
 
     /**
@@ -41,9 +44,10 @@ class TrashNotif extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->greeting($this->announcement->title)
+                    ->line($this->announcement->description)
+                    ->action('Periksa Tempat Sampah', url('/'))
+                    ->line('Terima kasih!');
     }
 
     /**

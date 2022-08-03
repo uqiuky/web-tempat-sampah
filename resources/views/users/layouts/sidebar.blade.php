@@ -72,11 +72,11 @@
             <i class="bx bx-menu" id="btn"></i>
         </div>
         <ul class="nav-list">
-            <li>
+            {{-- <li>
                 <i class="bx bx-search"></i>
                 <input type="text" placeholder="Search..." />
                 <span class="tooltip">Search</span>
-            </li>
+            </li> --}}
             <li>
                 <a href="/dashboard">
                     <i class="bx bx-grid-alt"></i>
@@ -91,6 +91,7 @@
                 </a>
                 <span class="tooltip">Riwayat Data</span>
             </li>
+            {{-- @if ($user->is_admin === 1) --}}
             <li>
                 <a href="/pekerja">
                     <i class="bx bx-folder"></i>
@@ -98,13 +99,14 @@
                 </a>
                 <span class="tooltip">Data Pekerja</span>
             </li>
-            <li>
+            {{-- @endif --}}
+            {{-- <li>
                 <a href="#">
                     <i class="bx bx-bell"></i>
                     <span class="links_name">Notifikasi</span>
                 </a>
                 <span class="tooltip">Notifikasi</span>
-            </li>
+            </li> --}}
             <div class="position-absolute bottom-0 ">
                 <li class="">
                     <a href="pekerja/show">

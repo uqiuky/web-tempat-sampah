@@ -24,9 +24,9 @@
                     <input type="password" name="password" class="form-control" placeholder="Password"
                         aria-label="Password" aria-describedby="addon-wrapping" required>
                 </div>
-                <div class="fw-lighter">
+                {{-- <div class="fw-lighter">
                     <a href="">lupa username/password anda?</a>
-                </div>
+                </div> --}}
                 <button class="mt-3 btn btn-secondary btn-lg">Masuk</button>
             </form>
         </div>

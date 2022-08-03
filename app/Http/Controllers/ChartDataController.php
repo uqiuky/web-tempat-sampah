@@ -15,85 +15,89 @@ class ChartDataController extends Controller
      */
     public function index()
     {
-        $nodenum = Data::pluck('node')->unique();
-        foreach ($nodenum as $nodenums) {
-            $todayData[] = Data::select('hcsr','last_update')->where('node','=',$nodenums)->whereDate('last_update', Carbon::today())->get();
-            $hourData[] = Data::select('hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
-                return Carbon::parse($data->last_update)->format('H');
-            });
-            $dayData[] = Data::select('hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
-                return Carbon::parse($data->last_update)->format('D');
-            });
-            $weekData[] = Data::select('hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
-                return Carbon::parse($data->last_update)->format('W');
-            });
-            $monthData[] = Data::select('hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
-                return Carbon::parse($data->last_update)->format('M');
-            });
-            # code...
-        }
-        $percent1 = Data::all()->where('node','=','1')->pluck('hcsr');
-        $percent2 = Data::all()->where('node','=','2')->pluck('hcsr');
-        $date1 = Data::all()->where('node','=','2')->pluck('last_update');
-        $date2 = Data::all()->where('node','=','2')->pluck('last_update');
-        $node = Data::pluck('hcsr')->sortBy('id');
-        $date = Data::pluck('last_update')->sortBy('id');
+        $dt = Carbon::now();
+        $datenow = $dt->toDateString();
+        // $weekly = $dt->subDays(7);
+        // $nodenum = Data::pluck('node')->unique();
+        // foreach ($nodenum as $nodenums) {
+        //     $todayData[] = Data::select('node','node','hcsr','last_update')->where('node','=',$nodenums)->whereDate('last_update', Carbon::today())->get();
+        //     $hourData[] = Data::select('node','hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
+        //         return Carbon::parse($data->last_update)->format('H');
+        //     });
+        //     $dayData[] = Data::select('node','hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
+        //         return Carbon::parse($data->last_update)->format('D');
+        //     });
+        //     $weekData[] = Data::select('node','hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
+        //         return Carbon::parse($data->last_update)->format('W');
+        //     });
+        //     $monthData[] = Data::select('node','hcsr','last_update')->where('node','=',$nodenums)->get()->groupBy(function($data){
+        //         return Carbon::parse($data->last_update)->format('M');
+        //     });
+        //     # code...
+        // }
+        // $percent1 = Data::all()->where('node','=','1')->pluck('hcsr');
+        // $percent2 = Data::all()->where('node','=','2')->pluck('hcsr');
+        // $date1 = Data::all()->where('node','=','1')->pluck('last_update')->map(function ($order) {
+        //     return substr($order, 0, 10);
+        // })->unique();
+        // $date2 = Data::all()->where('node','=','2')->pluck('last_update')->map(function ($order) {
+        //     return substr($order, 0, 10); // Return only the first ten characters.
+        // })->unique();
+        // $node = Data::pluck('hcsr')->sortBy('id');
+        // $date = Data::pluck('last_update')->sortBy('id');
         // $time = date('H:i:s', strtotime($date));
         // $data1 = $data->where('node','=','1');
         // $data2 = $data->where('node','=','2');
-        
-        $hours = [];
-        $hourCount = [];
+        // $todayData1 = Data::where('node','=','1')->whereDate('last_update', Carbon::today())->pluck('hcsr');
+        // $todayData2 = Data::where('node','=','2')->whereDate('last_update', Carbon::today())->pluck('hcsr');
+        // $todayDate1 = Data::where('node','=','1')->whereDate('last_update', Carbon::today())->pluck('last_update');
+        // $todayDate2 = Data::where('node','=','2')->whereDate('last_update', Carbon::today())->pluck('last_update');
+        // $yesterdayData1 = Data::where('node','=','1')->whereDate('last_update', Carbon::yesterday())->pluck('hcsr');
+        // $yesterdayData2 = Data::where('node','=','2')->whereDate('last_update', Carbon::yesterday())->pluck('hcsr');
+        // $yesterdayDate1 = Data::where('node','=','1')->whereDate('last_update', Carbon::yesterday())->pluck('last_update');
+        // $yesterdayDate2 = Data::where('node','=','2')->whereDate('last_update', Carbon::yesterday())->pluck('last_update');
+        $weekData1 = Data::select('node','hcsr','last_update')->where('node','=','1')->where('created_at', '>=', Carbon::today()->subDays(7))->get()->groupBy(function ($dataWeek) {
+            return Carbon::parse($dataWeek->last_update)->format('d M Y');
+        });
+        $avgday1 = [];
+        foreach ($weekData1 as $weekDatas1) {
+            $avgday1[] = $weekDatas1->avg('hcsr');
+            $allday1[] = $weekDatas1->pluck('last_update')->map(function ($order) {
+                return substr($order, 0, 10);
+            })->unique();
+        }
 
-        foreach ($hourData as $hour => $values) {
-            $hourValues = $values;
-            $hours[] = $hour;
-            $hourCount[] = count($values);
+        $day1pick = [];
+
+        foreach ($allday1 as $day1fix) {
+            $day1pick[] = $day1fix[0];
         }
         
-        $days = [];
-        $dayCount = [];
+        $weekData2 = Data::select('node','hcsr','last_update')->where('node','=','2')->get()->groupBy(function ($dataWeek) {
+            return Carbon::parse($dataWeek->last_update)->format('d M Y');
+        });
+        $avgday2 = [];
+        foreach ($weekData2 as $weekDatas2) {
+            $avgday2[] = $weekDatas2->avg('hcsr');
+            $allday2[] = $weekDatas2->pluck('last_update')->map(function ($order) {
+                return substr($order, 0, 10);
+            })->unique();
+        }
 
-        foreach ($dayData as $day => $values) {
-            $dayValues = $values;
-            $days[] = $day;
-            $dayCount[] = count($values);
+        $day2pick = [];
+
+        foreach ($allday2 as $day2fix) {
+            $day2pick[] = $day2fix[0];
         }
         
-        $weeks = [];
-        $weekCount = [];
-
-        foreach ($weekData as $week => $values) {
-            $weekValues = $values;
-            $weeks[] = $week;
-            $weekCount[] = count($values);
-        }
-
-        $months = [];
-        $monthCount = [];
-
-        foreach ($monthData as $month => $values) {
-            $monthValues = $values;
-            $months[] = $month;
-            $monthCount[] = count($values);
-        }
-
-        // $datasatu = [];
-
-        // foreach ($data1 as $data_1) {
-        //     $datasatu['percent'][] = $data_1->hcsr;
-        //     $datasatu['last_update'][] = $data_1->last_update;
-        // }
-        // dd($monthData);
-        // json(compact('percent1','percent2','date1','date2'));
+        // dd($datenow);
         return view('data', [
-            'percent1' => $percent1,
-            'percent2' => $percent2,
-            'node' => $node,
-            'date1' => $date1,
-            'monthData' => $monthData,
-            'months' => $months,
-            'monthCount' => $monthCount
+            'datenow' => $datenow,
+            'avgday1' => $avgday1,
+            'avgday2' => $avgday2,
+            'day1pick' => $day1pick,
+            'day2pick' => $day2pick,
+
         ]);
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Trash;
 use App\Models\Data;
+use App\Models\User;
+use App\Models\Biodata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -26,16 +28,14 @@ class TrashController extends Controller
             $data[] = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node_number','=',$nodenums)->latest('last_update')->first();
         }
 
+        foreach ($data as $moreData) {
+            $full[] = $moreData->hcsr;
+        }
+
         $nodetotal = Data::distinct()->count('node');
-        
-        // $data_1 = Data::where('node','=','1')->latest('last_update')->first();
-        // $data_2 = Data::where('node','=','2')->latest('last_update')->first();
 
-        // $try = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node','=',$nodenum)->get(['data.*', 'trashes.*']);
 
-        // $data = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->get(['data.*', 'trashes.*']);
-
-        // dd($data);
+        // dd($total);
 
     return view('dashboard.index',[
         "trash" => $data,

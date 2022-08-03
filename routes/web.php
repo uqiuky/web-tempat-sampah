@@ -31,6 +31,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/email', [EmailController::class, 'kirim']);
 
+// Route::get('/notification', [EmailController::class, 'notif']);
+
 Route::resource('/pekerja', DashboardUserController::class)->middleware('auth');
 
 Route::resource('/dashboard', TrashController::class)->middleware('auth');
