@@ -11,8 +11,8 @@
             <div class="mb-3">
                 <label for="node_number" class="form-label">Node Sampah</label>
                 <input type="number" class="form-control  @error('node_number') is-invalid @enderror" id="node_number"
-                    aria-describedby="node_number" required name="node_number"
-                    value="{{ old('node_number', $trash->node_number) }}" disabled>
+                    aria-describedby="node_number" name="node_number" value="{{ old('node_number', $trash->node_number) }}"
+                    disabled>
                 @error('node_number')
                     <div class="invalid-feedback">
                         {{ $message }}

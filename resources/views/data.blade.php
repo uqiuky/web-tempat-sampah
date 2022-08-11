@@ -26,14 +26,14 @@
             </div>
         </div>
         <div class="">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mb-3">
                 <div class="col-lg-2 col-md-2">
                     <select class="form-select form-select-sm" id="list" onchange="getSelectValue()">
                         <option value="1">Sampah Node 1</option>
                         <option value="2">Sampah Node 2</option>
                     </select>
                 </div>
-                <canvas class="mt-4 w-100" id="myChart" width="900" height="190"></canvas>
+                <canvas class="mt-4 w-100" id="myChart" width="80vw" height="40vh"></canvas>
                 <span class="text-center">Start Date :</span>
                 <input type="date" id="startdate" class="btn btn-secondary btn-sm col-lg-2 col-md-2"
                     onchange="filterData()">
@@ -41,11 +41,11 @@
                 <input type="date" id="enddate" class="btn btn-secondary btn-sm col-lg-2 col-md-2"
                     onchange="filterData()">
             </div>
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <canvas class="my-4 w-100" id="myChart2" width="900" height="190"></canvas>
                 <input type="date" id="startdate2" class="btn btn-secondary btn-sm" onchange="filterData2()">
                 <input type="date" id="enddate2" class="btn btn-secondary btn-sm" onchange="filterData2()">
-            </div>
+            </div> --}}
         </div>
         {{-- <div>
             <canvas class="my-4 w-100" id="yourChart" width="900" height="380"></canvas>
@@ -73,24 +73,30 @@
         let avgday2 = {!! json_encode($avgday2) !!};
         let day2pick = {!! json_encode($day2pick) !!};
 
-        // function getSelectValue() {
-        //     var selectedValue = document.getElementById('list').value;
-        //     if (selectedValue == 2) {
-        //         let avgday1 = {!! json_encode($avgday2) !!};
-        //         let day1pick = {!! json_encode($day2pick) !!};
-        //     } else {
-        //         let avgday1 = {!! json_encode($avgday1) !!};
-        //         let day1pick = {!! json_encode($day1pick) !!};
-        //     }
-        //     // myChart.update();
-        // }
+        var dates = day1pick;
+        var datapoint = avgday1;
 
-        const dates = day1pick;
-        const datapoint = avgday1;
+        function getSelectValue() {
+            var selectedValue = document.getElementById('list').value;
+            // let datapointfix = avgday1;
+            if (selectedValue == 2) {
+                // console.log(avgday2);
+                datapoint = avgday2;
+                dates = day2pick;
+            } else {
+                // console.log(avgday1);
+                datapoint = avgday1;
+                dates = day1pick;
+            }
+            myChart.config.data.labels = dates;
+            myChart.config.data.datasets[0].data = datapoint;
+            myChart.update();
+            // console.log(datapoint);
+        }
         const data = {
             labels: dates,
             datasets: [{
-                label: "Percentage of Nodes 1 ",
+                label: "Persentase Volume Sampah",
                 backgroundColor: [
                     "rgb(68,78,63)",
                     "rgb(112,131,104)",
@@ -110,6 +116,7 @@
                 plugins: {
                     legend: {
                         position: 'top',
+                        display: false
                     },
                     title: {
                         display: true,
@@ -126,7 +133,6 @@
         };
 
         const myChart = new Chart(document.getElementById("myChart"), config);
-
 
 
         function filterData() {
@@ -149,7 +155,7 @@
             myChart.update();
         }
     </script>
-    <script>
+    {{-- <script>
         const dates2 = day2pick;
         const datapoint2 = avgday2;
 
@@ -213,7 +219,7 @@
             myChart2.config2.data.datasets[0].data = filterDatapoint2;
             myChart2.update();
         }
-    </script>
+    </script> --}}
     {{-- <script type="text/javascript">
         $(function() {
 

@@ -6,9 +6,33 @@
         <h4 class="pt-3 mb-2">PENGATURAN PROFIL</h4>
         <hr>
         <table class="table table-borderless table-responsive">
-            <thead class="align-middle">
+            <div class="row d-inline-flex">
+                <div class="col-lg-4">
+                    @if ($data->photo)
+                        <img src="{{ asset('storage/' . $data->photo) }}" style="width: 14rem; height: 14rem"
+                            class="rounded-circle border">
+                    @else
+                        <img src="../img/profile-picture.png" style="width: 14rem; height: 14rem"
+                            class="rounded-circle border">
+                    @endif
+                </div>
+                <div class="col-lg-8 p-2">
+                    <h1 class="display-5">{{ $data->name }}</h1>
+                    <h3>
+                        @if (value($data->is_admin) === 1)
+                            (Admin)
+                        @else
+                            (Tukang Sampah)
+                        @endif
+                    </h3>
+                    <a href="/pekerja/{{ $data->id }}/edit">
+                        <i class="bi bi-pencil-square display-5"></i>
+                    </a>
+                </div>
+            </div>
+            {{-- <thead class="align-middle">
                 <tr>
-                    <th scope="col" class="col-2">
+                    <th scope="col" class="col">
                         @if ($data->photo)
                             <img src="{{ asset('storage/' . $data->photo) }}" style="width: 14rem; height: 14rem"
                                 class="rounded-circle border">
@@ -17,7 +41,7 @@
                                 class="rounded-circle border">
                         @endif
                     </th>
-                    <th scope="col" class="col-9">
+                    <th scope="col" class="col">
                         <h1 class="display-5 ">{{ $data->name }}</h1>
                         <h3>
                             @if (value($data->is_admin) === 1)
@@ -27,13 +51,13 @@
                             @endif
                         </h3>
                     </th>
-                    <th scope="col" class="col-1">
+                    <th scope="col" class="col">
                         <a href="/pekerja/{{ $data->id }}/edit">
                             <i class="bi bi-pencil-square display-5"></i>
                         </a>
                     </th>
                 </tr>
-            </thead>
+            </thead> --}}
         </table>
         <div class="row">
             <div class="col">
@@ -85,13 +109,13 @@
                         <p class="lead card-text">{{ $data->email }}</p>
                     </div>
                 </div>
-                <div class="card mx-2 my-2">
+                {{-- <div class="card mx-2 my-2">
                     <h4 class="card-header">Lain-lain</h4>
                     <div class="card-body">
                         <p class="lead card-text"><a href="">Hubungi Admin</a></p>
                         <p class="lead card-text"><a href="">Tentang situs ini</a></p>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>

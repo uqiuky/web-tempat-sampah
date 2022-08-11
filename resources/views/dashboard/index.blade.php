@@ -119,8 +119,8 @@
                                             <form action="/dashboard/{{ $trash->node_number }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button role="button"
-                                                    class="btn btn-lg btn-secondary opacity-75">Delete</button>
+                                                <button role="button" class="btn btn-lg btn-secondary opacity-75"
+                                                    onclick="return confirm('Menghapus tempat sampah akan MENGHAPUS SELURUH DATA sampah yang telah terekam juga. Apakah anda yakin ingin menghapus tempat sampah?')">Delete</button>
                                             </form>
                                             <a href="dashboard/{{ $trash->node_number }}/edit" role="button"
                                                 class="btn btn-lg btn-primary opacity-75">Edit</a>
@@ -130,33 +130,35 @@
                             </div>
                         @endforeach
                     @endif
-                    <div class="my-auto opacity-50 col-lg-3 col-md-4 col-sm-6">
-                        <a href="dashboard/create">
-                            <div class="card border-0">
-                                {{-- <div class="card-header text-end">
+                    @if (auth()->user()->is_admin !== 0)
+                        <div class="my-auto opacity-50 col-lg-3 col-md-4 col-sm-6">
+                            <a href="dashboard/create">
+                                <div class="card border-0">
+                                    {{-- <div class="card-header text-end">
                                 <a href="" class="link-warning"><i class="fa-solid fa-square-pen"></i></i></a>
                                 <a href="" class="link-danger"><i class="fa-solid fa-square-minus"></i></a>
                             </div> --}}
-                                <div class="trash mx-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                                        fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                                    </svg>
+                                    <div class="trash mx-auto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                            fill="currentColor" class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                        </svg>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5>TAMBAH TEMPAT SAMPAH</h5>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5>TAMBAH TEMPAT SAMPAH</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
 
         <div class="" id="featured-3">
             <div class="row py-4 row-cols-1 row-cols-lg-4 justify-content-around fs-6">
-                <div class="feature col pt-3 rounded text-light" style="background-color: #4d6360">
+                <div class="feature col mb-3 pt-3 rounded text-light" style="background-color: #4d6360">
                     <div class="feature-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
                             class="bi bi-trash2" viewBox="0 0 16 16">
@@ -168,7 +170,7 @@
                     <h4>Total Tempat Sampah</h4>
                     <p>Jumlah total tempat sampah di lingkungan Politeknik Negeri Semarang yang dapat dipantau.</p>
                 </div>
-                <div class="feature col pt-3 rounded text-light" style="background-color: #62829f">
+                <div class="feature col mb-3 pt-3 rounded text-light" style="background-color: #62829f">
                     <div class="feature-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
                             class="bi bi-trash2-fill" viewBox="0 0 16 16">
@@ -176,11 +178,11 @@
                                 d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
                         </svg>
                     </div>
-                    <h1 class="float-end mx-2 my-2">02</h1>
+                    <h1 class="float-end mx-2 my-2">{{ $fillfull }}</h1>
                     <h4>Tempat Sampah Penuh</h4>
-                    <p>Jumlah tempat sampah yang terdeteksi penuh dan harus segera dikosongkan</p>
+                    <p>Jumlah tempat sampah terdeteksi penuh dan harus segera dikosongkan</p>
                 </div>
-                <div class="feature col pt-3 rounded text-light" style="background-color: #4f5e6c">
+                <div class="feature col mb-3 pt-3 rounded text-light" style="background-color: #4f5e6c">
                     <div class="feature-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
                             class="bi bi-recycle" viewBox="0 0 16 16">
@@ -188,10 +190,9 @@
                                 d="M9.302 1.256a1.5 1.5 0 0 0-2.604 0l-1.704 2.98a.5.5 0 0 0 .869.497l1.703-2.981a.5.5 0 0 1 .868 0l2.54 4.444-1.256-.337a.5.5 0 1 0-.26.966l2.415.647a.5.5 0 0 0 .613-.353l.647-2.415a.5.5 0 1 0-.966-.259l-.333 1.242-2.532-4.431zM2.973 7.773l-1.255.337a.5.5 0 1 1-.26-.966l2.416-.647a.5.5 0 0 1 .612.353l.647 2.415a.5.5 0 0 1-.966.259l-.333-1.242-2.545 4.454a.5.5 0 0 0 .434.748H5a.5.5 0 0 1 0 1H1.723A1.5 1.5 0 0 1 .421 12.24l2.552-4.467zm10.89 1.463a.5.5 0 1 0-.868.496l1.716 3.004a.5.5 0 0 1-.434.748h-5.57l.647-.646a.5.5 0 1 0-.708-.707l-1.5 1.5a.498.498 0 0 0 0 .707l1.5 1.5a.5.5 0 1 0 .708-.707l-.647-.647h5.57a1.5 1.5 0 0 0 1.302-2.244l-1.716-3.004z" />
                         </svg>
                     </div>
-                    <h1 class="float-end mx-2 my-2">345</h1>
+                    <h1 class="float-end mx-2 my-2">{{ $totalvolume }} cm<sup>3</sup></h1>
                     <h4>Total Volume Sampah</h4>
-                    <p>Total volume sampah yang terkumpul (per hari) dari seluruh tempat sampah. <a href="#"
-                            class="icon-link">Klik untuk informasi lebih detail</a></p>
+                    <p>Total volume sampah saat ini yang terbaca dari seluruh tempat sampah.</p>
                 </div>
             </div>
         </div>

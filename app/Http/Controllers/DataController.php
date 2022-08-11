@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Email;
 use App\Models\Data;
+use App\Models\User;
+use App\Models\Biodata;
+use App\Models\Trash;
+use App\Models\Announcement;
+use App\Notifications\TrashNotif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class DataController extends Controller
 {
@@ -63,27 +71,22 @@ class DataController extends Controller
             $percent = 100 - $cm;
         }
 
-        // $datasend = [
-        //     'node' => $request->$node,
-    	// 	'hcsr' => $request->$percent,
-    	// 	'last_update' => $request->$datetime
-        // ];
+        $try = Data::select('hcsr')->latest('last_update')->first();
 
-        // DB::table('data')->insert($datasend);
+        $sort = $try->hcsr;
 
-        // $this->validate($request,[
-    	// 	'node' => 'required',
-        //     'hcsr' => 'required',
-    	// 	'last_update' => 'required'
-    	// ]);
+        if ($sort>=85) {
+            $announcement = Announcement::create([
+            'title' => "Halo, Pekerja Angkut Sampah!",
+            'description' => "Tempat sampah sepertinya ada yang penuh! Harap segera kosongkan sampah agar bisa digunakan lagi. Untuk melihat tempat sampah yang penuh, silahkan klik tombol di bawah ini :",
+            ]);
 
-        // Data::create([
-    	// 	'node' => $node,
-    	// 	'hcsr' => $percent,
-    	// 	'last_update' => $datetime
-    	// ]);
-        
-        // dd($request);
+            $dataset = User::leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')->get(['users.*', 'biodatas.*']);
+
+            $email = $dataset->pluck('email');
+
+            Notification::route('mail', $email)->notify(new TrashNotif($announcement));
+        }
 
         $data = new Data();
 
@@ -92,6 +95,7 @@ class DataController extends Controller
         $data->last_update = $datetimes;
 
         $data->save();
+        
          
     }
 

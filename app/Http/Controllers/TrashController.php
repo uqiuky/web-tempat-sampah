@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+
 class TrashController extends Controller
 {
     /**
@@ -18,7 +19,7 @@ class TrashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $trashes = Trash::all();
 
@@ -27,17 +28,32 @@ class TrashController extends Controller
         foreach ($nodenum as $nodenums) {
             $data[] = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node_number','=',$nodenums)->latest('last_update')->first();
         }
-
+        $try = Data::select('hcsr')->latest('last_update')->first();
+        
         foreach ($data as $moreData) {
-            $full[] = $moreData->hcsr;
+            $fill[] = $moreData->hcsr;
+            $filltry = collect($fill)->sortDesc();
         }
+        
+        $sort = $filltry->values()->first();
+        // $sort2 = $try->hcsr;
+        $sort3 = collect($filltry)->sum();
+
+        $totalvolume = $sort3*36000/100;
+        
+        $filtered = $filltry->filter(function ($value, $key) {
+            return $value >= 85;
+        });
+
+        $fillfull = $filtered->count();
 
         $nodetotal = Data::distinct()->count('node');
 
-
-        // dd($total);
+        // dd($totalvolume);
 
     return view('dashboard.index',[
+        "totalvolume" => $totalvolume,
+        "fillfull" => $fillfull,
         "trash" => $data,
         "total" => $nodetotal
     ]);
@@ -124,15 +140,15 @@ class TrashController extends Controller
     	];
         $data = Trash::find($id);
 
-        if ($request->node_number != $data->node_number) {
-            $rules['node_number'] = 'required|unique:trashes';
-        }
+        // if ($request->node_number != $data->node_number) {
+        //     $rules['node_number'] = 'required|unique:trashes';
+        // }
         
         $this->validate($request, $rules);
 
         Trash::where('id', $data->id)
         ->update([
-    		'node_number' => $request->node_number,
+    		// 'node_number' => $request->node_number,
     		'location' => $request->location,
     		'maps' => $request->maps
     	]);
@@ -146,18 +162,24 @@ class TrashController extends Controller
      * @param  \App\Models\Trash  $trash
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trash $trash, $id)
+    public function destroy(Trash $trash, Request $request, $id)
     {
         $nodenum = Trash::pluck('node_number');
 
         foreach ($nodenum as $nodenums) {
             $data[] = Trash::leftJoin('data', 'data.node', '=', 'trashes.node_number')->where('node_number','=',$nodenums)->latest('last_update')->first();
         }
+        foreach ($data as $datas) {
+            $datanode = $datas->get('node_number');
+        }
+        // $datanods = $data->get('node_number')->toArray();
+        $key = $request->url();
+        $keynode =substr($key, -1);
         
-        $data_id = Trash::find($id);
+        $data_id = Trash::where('node_number', '=', $keynode)->get();
         // dd($data_id);
         
-        $data_id->delete();
+        $data_id->each->delete();
 
         return redirect('/dashboard')->with('success', 'Sampah berhasil dihapus!');
     }

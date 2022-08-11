@@ -46,7 +46,7 @@ class TrashNotif extends Notification
         return (new MailMessage)
                     ->greeting($this->announcement->title)
                     ->line($this->announcement->description)
-                    ->action('Periksa Tempat Sampah', url('/'))
+                    ->action('Periksa Tempat Sampah', url('http://web-tempat-sampah.ap-1.sharedwithexpose.com/dashboard'))
                     ->line('Terima kasih!');
     }
 

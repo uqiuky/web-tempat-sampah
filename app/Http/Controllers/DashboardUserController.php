@@ -18,7 +18,7 @@ class DashboardUserController extends Controller
      */
     public function index()
     {
-        $data = User::leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')->get(['users.*', 'biodatas.*']);
+        $data = User::leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')->get(['users.*', 'biodatas.*'])->sortByDesc('is_admin');
 
         $email = $data->pluck('email');
 

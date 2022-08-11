@@ -31,8 +31,8 @@ class EmailController extends Controller
 
     public function store(Request $request){
         $announcement = Announcement::create([
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => "Halo, Pekerja Angkut Sampah!",
+            'description' => "Tempat sampah sepertinya ada yang penuh! Harap segera kosongkan sampah agar bisa digunakan lagi. Untuk melihat tempat sampah yang penuh, silahkan klik tombol di bawah ini :",
         ]);
 
         $data = User::leftJoin('biodatas', 'biodatas.user_id', '=', 'users.id')->get(['users.*', 'biodatas.*']);
