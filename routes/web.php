@@ -20,8 +20,9 @@ use App\Http\Controllers\EmailController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/', [LoginController::class, 'authenticate']);
+Route::get('/', [LoginController::class, 'firstpage'])->middleware('guest');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::post('/employee', [LoginController::class, 'create']);
 Route::post('/logout', [LoginController::class, 'logout']);
 

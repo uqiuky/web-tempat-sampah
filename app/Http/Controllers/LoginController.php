@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function firstpage()
+    {
+        return redirect('/login');
+    }
+
     public function index()
     {
         return view('login.index');
@@ -38,7 +43,7 @@ class LoginController extends Controller
     
         $request->session()->regenerateToken();
     
-        return redirect('/');
+        return redirect('/login');
     }
 
     // public function create(Request $request)

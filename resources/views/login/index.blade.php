@@ -17,7 +17,7 @@
                     sampah menangani sampah
                     di lingkungan sekitar. Silahkan klik "Masuk" apabila anda merupakan petugas kebersihan.
                 </p>
-                <form action="/" method="post">
+                <form action="/login" method="post">
                     @csrf
                     <div class="input-group flex-nowrap">
                         <input type="text" name="username" class="form-control" placeholder="Username"
