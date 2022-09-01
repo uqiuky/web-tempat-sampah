@@ -18,6 +18,7 @@ class CreateTrashesTable extends Migration
             $table->bigInteger('node_number')->unique();
             $table->string('location')->nullable();
             $table->string('maps')->nullable();
+            $table->string('lingkup')->nullable();
             $table->timestamps();
         });
     }

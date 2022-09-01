@@ -48,6 +48,14 @@
                     <option value="1">Admin</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Lingkup Pemantauan</label>
+                <select class="form-select" aria-label="Default select example" name="lingkup_pantau">
+                    <option value="Lab Telekomunikasi">Lab Telekomunikasi</option>
+                    <option value="Gedung Magister">Gedung Magister</option>
+                    <option value="Gedung Sekolah B">Gedung Sekolah B</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Tambahkan Akun</button>
         </form>
     </section>

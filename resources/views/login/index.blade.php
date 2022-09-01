@@ -12,8 +12,8 @@
 
         <div class="justify-content-center row">
             <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column">
-                <h1 class="display-2 judul pb-2">Angkut Sampah</h1>
-                <p class="">Selamat datang di website Angkut Sampah. Website untuk membantu para pekerja tukang
+                <h1 class="display-2 judul pb-2">Pantau Sampah</h1>
+                <p class="">Selamat datang di website Pantau Sampah. Website untuk membantu para pekerja tukang
                     sampah menangani sampah
                     di lingkungan sekitar. Silahkan klik "Masuk" apabila anda merupakan petugas kebersihan.
                 </p>

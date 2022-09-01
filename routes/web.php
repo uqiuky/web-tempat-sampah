@@ -23,22 +23,16 @@ use App\Http\Controllers\EmailController;
 Route::get('/', [LoginController::class, 'firstpage'])->middleware('guest');
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-// Route::post('/employee', [LoginController::class, 'create']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-// Route::get('/data', function () {
-//     return view('data',);
-// })->middleware('auth');
-
 Route::get('/email', [EmailController::class, 'kirim']);
-
-// Route::get('/notification', [EmailController::class, 'notif']);
 
 Route::resource('/pekerja', DashboardUserController::class)->middleware('auth');
 
 Route::resource('/dashboard', TrashController::class)->middleware('auth');
 
 Route::resource('/data', ChartDataController::class)->middleware('auth');
-// Route::get('{}/edit', 'App\Http\TrashController@edit')->name('dashboard.editsampah');
 
-// Route::get('/employee', 'App\Http\Controllers\TrashController@create');
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});

@@ -105,7 +105,7 @@
                                                             <h4 class="pt-2">Last Update : </h4>
                                                             <h3 class="">
                                                                 @if ($trash->node)
-                                                                    {{ $trash->last_update }}
+                                                                    {{ \Carbon\Carbon::parse($trash->last_update)->format('d-m-Y H:i:s') }}
                                                                 @else
                                                                     ID Sampah tidak terbaca
                                                                 @endif
@@ -115,22 +115,24 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <form action="/dashboard/{{ $trash->node_number }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button role="button" class="btn btn-lg btn-secondary opacity-75"
-                                                    onclick="return confirm('Menghapus tempat sampah akan MENGHAPUS SELURUH DATA sampah yang telah terekam juga. Apakah anda yakin ingin menghapus tempat sampah?')">Delete</button>
-                                            </form>
-                                            <a href="dashboard/{{ $trash->node_number }}/edit" role="button"
-                                                class="btn btn-lg btn-primary opacity-75">Edit</a>
-                                        </div>
+                                        @if (auth()->user()->is_admin == 1)
+                                            <div class="modal-footer">
+                                                <form action="/dashboard/{{ $trash->node_number }}" method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button role="button" class="btn btn-lg btn-secondary opacity-75"
+                                                        onclick="return confirm('Menghapus tempat sampah akan MENGHAPUS SELURUH DATA sampah yang telah terekam juga. Apakah anda yakin ingin menghapus tempat sampah?')">Delete</button>
+                                                </form>
+                                                <a href="dashboard/{{ $trash->node_number }}/edit" role="button"
+                                                    class="btn btn-lg btn-primary opacity-75">Edit</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     @endif
-                    @if (auth()->user()->is_admin !== 0)
+                    @if (auth()->user()->is_admin == 1)
                         <div class="my-auto opacity-50 col-lg-3 col-md-4 col-sm-6">
                             <a href="dashboard/create">
                                 <div class="card border-0">

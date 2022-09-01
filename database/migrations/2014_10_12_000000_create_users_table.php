@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('lingkup_pantau')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });

@@ -26,6 +26,7 @@ class User extends Authenticatable
         'username',
         'password',
         'is_admin',
+        'lingkup_pantau'
     ];
 
     /**

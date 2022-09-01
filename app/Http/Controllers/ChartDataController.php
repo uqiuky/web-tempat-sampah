@@ -56,7 +56,7 @@ class ChartDataController extends Controller
         // $yesterdayData2 = Data::where('node','=','2')->whereDate('last_update', Carbon::yesterday())->pluck('hcsr');
         // $yesterdayDate1 = Data::where('node','=','1')->whereDate('last_update', Carbon::yesterday())->pluck('last_update');
         // $yesterdayDate2 = Data::where('node','=','2')->whereDate('last_update', Carbon::yesterday())->pluck('last_update');
-        $weekData1 = Data::select('node','hcsr','last_update')->where('node','=','1')->where('created_at', '>=', Carbon::today()->subDays(7))->get()->groupBy(function ($dataWeek) {
+        $weekData1 = Data::select('node','hcsr','last_update')->where('node','=','1')->where('last_update', '>=', Carbon::today()->subDays(7))->get()->groupBy(function ($dataWeek) {
             return Carbon::parse($dataWeek->last_update)->format('d M Y');
         });
         $avgday1 = [];
@@ -66,9 +66,10 @@ class ChartDataController extends Controller
                 return substr($order, 0, 10);
             })->unique();
         }
-
+        
         $day1pick = [];
-
+        // dd($weekData1);
+        
         foreach ($allday1 as $day1fix) {
             $day1pick[] = $day1fix[0];
         }
@@ -90,7 +91,6 @@ class ChartDataController extends Controller
             $day2pick[] = $day2fix[0];
         }
         
-        // dd($datenow);
         return view('data', [
             'datenow' => $datenow,
             'avgday1' => $avgday1,

@@ -19,6 +19,7 @@
                     <th scope="col">Username</th>
                     <th scope="col">Status</th>
                     <th scope="col">Nama</th>
+                    <th scope="col">Lingkup Pantau</th>
                     <th scope="col">Tanggal Lahir</th>
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Alamat</th>
@@ -34,7 +35,7 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $user->username }}</td>
                         <td>
-                            @if (value($user->is_admin) === 1)
+                            @if (value($user->is_admin) == 1)
                                 Admin
                             @else
                                 Tukang Sampah
@@ -45,6 +46,15 @@
                                 -
                             @else
                                 {{ $user->name }}
+                            @endif
+                        </td>
+                        <td>
+                            @if (!$user->lingkup_pantau)
+                                -
+                            @elseif ($user->is_admin == 1)
+                                Semua Gedung
+                            @else
+                                {{ $user->lingkup_pantau }}
                             @endif
                         </td>
                         <td>

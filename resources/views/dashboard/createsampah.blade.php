@@ -37,6 +37,14 @@
                     </div>
                 @enderror
             </div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Lingkup Pemantauan</label>
+                <select class="form-select" aria-label="Default select example" name="lingkup">
+                    <option value="Lab Telekomunikasi">Lab Telekomunikasi</option>
+                    <option value="Gedung Magister">Gedung Magister</option>
+                    <option value="Gedung Sekolah B">Gedung Sekolah B</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Tambahkan Tempat Sampah</button>
         </form>
     </section>

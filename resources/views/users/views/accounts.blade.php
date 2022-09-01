@@ -19,7 +19,7 @@
                 <div class="col-lg-8 p-2">
                     <h1 class="display-5">{{ $data->name }}</h1>
                     <h3>
-                        @if (value($data->is_admin) === 1)
+                        @if (value($data->is_admin) == 1)
                             (Admin)
                         @else
                             (Tukang Sampah)

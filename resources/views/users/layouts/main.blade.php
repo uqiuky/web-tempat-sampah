@@ -13,6 +13,8 @@
     <link href="/css/dashboard.css" rel="stylesheet">
     <link href="/css/features.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    
+    <link href="/img/trash-bin.png" rel="shortcut icon">
 
     {{-- CSS Icon Sampah --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,7 +27,7 @@
     {{-- <link rel="stylesheet" href="/css/stylesampah.css" /> --}}
     <link rel="stylesheet" href="/css/sidebarstyle.css" />
 
-    <title>Angkut Sampah</title>
+    <title>Pantau Sampah</title>
 
     <script src="js/progress.js"></script>
     <script src="https://kit.fontawesome.com/5c86256b06.js" crossorigin="anonymous"></script>

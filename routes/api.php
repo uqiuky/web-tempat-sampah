@@ -24,5 +24,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/data', [DataController::class ,'store']);
 
 Route::post('/announcements', [EmailController::class ,'store']);
-
-// Route::get('/data', [DataController::class ,'index']);

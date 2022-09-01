@@ -17,6 +17,7 @@ class Trash extends Model
     protected $fillable = [
         'node_number',
         'location',
-        'maps'
+        'maps',
+        'lingkup'
     ];
 }

@@ -23,7 +23,7 @@ class DashboardUserController extends Controller
         $email = $data->pluck('email');
 
         // dd($email);
-        if(auth()->user()->is_admin !== 1){
+        if(auth()->user()->is_admin == 0){
             abort(403);
         }
         return view('users.views.index', [
@@ -38,7 +38,7 @@ class DashboardUserController extends Controller
      */
     public function create()
     {
-        if(auth()->user()->is_admin !== 1){
+        if(auth()->user()->is_admin == 0){
             abort(403);
         }
         return view('users.views.register',);
@@ -57,13 +57,15 @@ class DashboardUserController extends Controller
             'username' => 'required|unique:users',
     		'email' => 'required|unique:biodatas',
     		'password' => 'required',
-    		'is_admin' => 'required'
+    		'is_admin' => 'required',
+    		'lingkup_pantau' => 'required'
     	]);
 
         User::create([
     		'username' => $request->username,
     		'password' => Hash::make($request->password),
-    		'is_admin' => $request->is_admin
+    		'is_admin' => $request->is_admin,
+    		'lingkup_pantau' => $request->lingkup_pantau
     	]);
         
         $user = User::where("username", $request->username)->first();
@@ -74,7 +76,7 @@ class DashboardUserController extends Controller
             'user_id' => $user->id
     	]);
 
-        if(auth()->user()->is_admin !== 1){
+        if(auth()->user()->is_admin == 0){
             abort(403);
         }
 
